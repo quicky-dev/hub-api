@@ -1,13 +1,79 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo"
 	filestore "github.com/quicky-dev/api/fileStore"
+	"github.com/quicky-dev/generator/generator"
 )
+
+var ubuntu generator.UBUNTU_GENERATOR = generator.GetUbuntuGenerator()
+
+/* ------------------------------- GetGeneric ------------------------------- */
+
+// GetGeneric creates the Generic setup script and sends it
+// as response returns the file of the setup script
+func GetUbuntuGeneric(c echo.Context) error {
+	// generates the generic script and returns the uid
+	script, err := ubuntu.GenerateGenericScript()
+	if err != nil {
+		log.Fatalln("Caught the following error while generating setup script: ", err)
+		os.Exit(1) // exits program due to error
+	}
+	// returns setup script as string
+	return c.String(http.StatusOK, script.Payload)
+}
+
+/* -------------------------------- GetCustom ------------------------------- */
+
+//GetCustom takes in the list of software the user wants to download
+//from the the request body, the lists are then used to generate the correct
+//setup script
+func GetUbuntuCustom(c echo.Context) error {
+
+	// struct for setup script factory
+	var install generator.InstallRequest
+	// read request body
+	reqBody, err := ioutil.ReadAll(c.Request().Body)
+	if err != nil {
+		log.Fatalln(err)
+		os.Exit(1)
+	}
+
+	// unmarshal json from request body into install request struct
+	err = json.Unmarshal(reqBody, &install)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	// generate the bash script
+	script, err := ubuntu.GenerateDynamicScript(install)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	// Create S3 Session and get handler
+	handler, err := filestore.GetHandler()
+	if err != nil {
+		log.Fatal("There was an error getting S3 Session: ", err)
+	}
+
+	// Uploads file to S3 Bucket
+	err = handler.UploadFile("ubuntu", script.UUID, script.Payload)
+	if err != nil {
+		log.Fatal("There was an error uploading file to S3 : ", err)
+	}
+	// send path to file as a download
+	return c.String(http.StatusOK, script.UUID)
+}
 
 /* --------------------------------- GetFile -------------------------------- */
 
