@@ -2,6 +2,64 @@
 
 
 [[projects]]
+  digest = "1:825f89441de26ee742ebf972e5b42d98c78b33d73dbf6b43008c66e1ce0700c7"
+  name = "github.com/aws/aws-sdk-go"
+  packages = [
+    "aws",
+    "aws/arn",
+    "aws/awserr",
+    "aws/awsutil",
+    "aws/client",
+    "aws/client/metadata",
+    "aws/corehandlers",
+    "aws/credentials",
+    "aws/credentials/ec2rolecreds",
+    "aws/credentials/endpointcreds",
+    "aws/credentials/processcreds",
+    "aws/credentials/stscreds",
+    "aws/csm",
+    "aws/defaults",
+    "aws/ec2metadata",
+    "aws/endpoints",
+    "aws/request",
+    "aws/session",
+    "aws/signer/v4",
+    "internal/context",
+    "internal/ini",
+    "internal/s3err",
+    "internal/sdkio",
+    "internal/sdkmath",
+    "internal/sdkrand",
+    "internal/sdkuri",
+    "internal/shareddefaults",
+    "internal/strings",
+    "internal/sync/singleflight",
+    "private/protocol",
+    "private/protocol/eventstream",
+    "private/protocol/eventstream/eventstreamapi",
+    "private/protocol/json/jsonutil",
+    "private/protocol/query",
+    "private/protocol/query/queryutil",
+    "private/protocol/rest",
+    "private/protocol/restxml",
+    "private/protocol/xml/xmlutil",
+    "service/s3",
+    "service/s3/internal/arn",
+    "service/sts",
+    "service/sts/stsiface",
+  ]
+  pruneopts = "UT"
+  revision = "e80315117c6955364974702b89f67d6f0a7247e3"
+  version = "v1.29.27"
+
+[[projects]]
+  digest = "1:bb81097a5b62634f3e9fec1014657855610c82d19b9a40c17612e32651e35dca"
+  name = "github.com/jmespath/go-jmespath"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c2b33e84"
+
+[[projects]]
   digest = "1:8466ad3bbf246e5f511de17d7d66089aa5388be2272cee17a71fe5d1ccda4c64"
   name = "github.com/labstack/echo"
   packages = ["."]
@@ -35,6 +93,14 @@
   pruneopts = "UT"
   revision = "7b513a986450394f7bbf1476909911b3aa3a55ce"
   version = "v0.0.12"
+
+[[projects]]
+  branch = "master"
+  digest = "1:400a3b642677e82c43ee9761fef5aaaa32518aded8039743de4e3755cb79ec37"
+  name = "github.com/quicky-dev/api"
+  packages = ["fileStore"]
+  pruneopts = "UT"
+  revision = "5f2baddc0341127831d2c3de72109e7d3fec6f4e"
 
 [[projects]]
   digest = "1:c468422f334a6b46a19448ad59aaffdfc0a36b08fdcc1c749a0b29b6453d7e59"
@@ -113,6 +179,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/labstack/echo"]
+  input-imports = [
+    "github.com/labstack/echo",
+    "github.com/quicky-dev/api/fileStore",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
