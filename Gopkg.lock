@@ -148,6 +148,14 @@
   version = "v1.1.0"
 
 [[projects]]
+  digest = "1:fdc6aa833af5e3e29bd18026fd82813a2d6ac4245db88c402810f2c6179b80c5"
+  name = "go.mongodb.org/mongo-driver"
+  packages = ["bson/primitive"]
+  pruneopts = "UT"
+  revision = "17ea4abd2ac121376c1f782964fce1c3ee692915"
+  version = "v1.3.1"
+
+[[projects]]
   branch = "master"
   digest = "1:9a9cf26f20c88b890e03544ed6fc8b04f59f6d618e32a4de2b4b23f61d344580"
   name = "golang.org/x/crypto"
@@ -212,6 +220,7 @@
     "github.com/labstack/echo",
     "github.com/quicky-dev/api/fileStore",
     "github.com/quicky-dev/generator/generator",
+    "go.mongodb.org/mongo-driver/bson/primitive",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
