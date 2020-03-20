@@ -1,3 +1,0 @@
-// CRUD for scripts "/api/v1/scripts" 
-// CRUD for comments "api/v1/scripts/comments"
-// CRUD for ratins "api/v1/ratings"
