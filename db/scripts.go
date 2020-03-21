@@ -73,6 +73,20 @@ func (this *Script) GetScripts() error {
 	return nil
 }
 
-func (this *Script) DeleteScript(id int64) string {
-	// delete script
+// DeleteScript will delete the script associated with its id
+func (this *Script) DeleteScript(objectID string) (bool, error) {
+	objectIDHex, err := util.GetObjectIDFromString(objectID)
+	if err != nil {
+		return false, err
+	}
+
+	filter := bson.M{{"_id": objectIDHex}}
+
+	deleteScript, err := script.DeleteOne(contex.TODO(), filter)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return true, nil
 }
