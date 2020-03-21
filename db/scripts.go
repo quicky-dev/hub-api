@@ -17,8 +17,8 @@ type Script struct {
 	Username  string
 	Auth_id   string
 	Script_id string
-	Ratings   primitive.ObjectID
-	Comments  primitive.ObjectID
+	Ratings   primitive.ObjectID `bson: "_id, omitempty"`
+	Comments  primitive.ObjectID `bson: "_id, omitempty"`
 }
 
 // CreateScript creates a new empty Script
