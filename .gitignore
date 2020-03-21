@@ -68,7 +68,7 @@ Temporary Items
 .apdisk
 
 .env
-.txt
+*.txt
 
 
 # End of https://www.gitignore.io/api/go,golang,linux,macos
