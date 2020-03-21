@@ -17,8 +17,8 @@ type Script struct {
 	Username  string
 	Auth_id   string
 	Script_id string
-	Ratings   []Ratings
-	Comments  []Comments
+	Ratings   primitive.ObjectID
+	Comments  primitive.ObjectID
 }
 
 // CreateScript creates a new empty Script
