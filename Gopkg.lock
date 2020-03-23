@@ -315,6 +315,7 @@
     "github.com/labstack/echo",
     "github.com/quicky-dev/api/fileStore",
     "github.com/quicky-dev/generator/generator",
+    "go.mongodb.org/mongo-driver/bson",
     "go.mongodb.org/mongo-driver/bson/primitive",
     "go.mongodb.org/mongo-driver/mongo",
     "go.mongodb.org/mongo-driver/mongo/options",
