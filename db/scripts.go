@@ -44,7 +44,7 @@ func (this *Script) SaveScript() (string, error) {
 }
 
 // GetScripts returns a list of all Scripts
-func GetScripts() ([]*Script, error) {
+func ReturnScripts() ([]*Script, error) {
 	findOptions := options.Find()
 	empty_filter := bson.D{{}}
 
@@ -74,7 +74,7 @@ func GetScripts() ([]*Script, error) {
 }
 
 // DeleteScript will delete the script associated with its id
-func (this *Script) DeleteScript(objectID string) (bool, error) {
+func (this *Script) DropScript(objectID string) (bool, error) {
 	objectIDHex, err := util.GetObjectIDFromString(objectID)
 
 	if err != nil {
