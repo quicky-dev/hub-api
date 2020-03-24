@@ -74,7 +74,14 @@ func ReturnScripts() ([]*Script, error) {
 }
 
 func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
+	// get id of comment to update
 	objectIDHex, err := util.GetObjectIDFromString(objectID)
+
+	update := bson.D{
+		{"$inc", bson.D{
+			{"Comment", 1},
+		}},
+	}
 
 	// update comment
 	filter_comment := bson.D{{"Comments", "ID"}}
@@ -83,14 +90,18 @@ func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
 	scripts, err := ReturnScripts()
 
 	// loop through scripts
-	for i, script := range scripts {
-		update := bson.D{
-			{"$inc", bson.D{
-				{"age", 1},
-			}},
-	} 
+	for _, script := range scripts {
+		for _, comment := range Comments {
+			if comment.ID == objectIDHex {
+				// update comment
+				updateResult, err := collection.UpdateOne(context.TODO(), filter, update)
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
 
-
+		}
+	
 }
 
 // DeleteScript will delete the script associated with its id
