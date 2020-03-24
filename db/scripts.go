@@ -104,21 +104,3 @@ func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
 	
 }
 
-// DeleteScript will delete the script associated with its id
-func DropScript(objectID string) (bool, error) {
-	objectIDHex, err := util.GetObjectIDFromString(objectID)
-
-	if err != nil {
-		return false, err
-	}
-
-	filter := bson.M{{"_id": objectIDHex}}
-
-	_, err = script.DeleteOne(contex.TODO(), filter)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return true, nil
-}
