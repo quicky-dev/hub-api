@@ -158,6 +158,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:1259e849db6c58d70b89806febfd713607fc436bb73cefa43bcb1106080623b8"
+  name = "github.com/quicky-dev/auth-service"
+  packages = ["util"]
+  pruneopts = "UT"
+  revision = "e6822e4929b512d4da4eacc7b2a4e943421a4071"
+
+[[projects]]
+  branch = "master"
   digest = "1:45b0a986a3f711fc8ce62bbf8b625eed81e49e647aa247f25a9253b6b1e8e8d3"
   name = "github.com/quicky-dev/generator"
   packages = [
@@ -243,11 +251,13 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9f1c97be535e523c94d491d7b44ce1a0af5a74a1479dfc96229299f26d3acfc5"
+  digest = "1:a24331072b58e8aac1ab4bd5b13a057a50021ac7b3b9a0d952f369c7e848a9ba"
   name = "golang.org/x/crypto"
   packages = [
     "acme",
     "acme/autocert",
+    "bcrypt",
+    "blowfish",
     "pbkdf2",
   ]
   pruneopts = "UT"
@@ -314,6 +324,7 @@
   input-imports = [
     "github.com/labstack/echo",
     "github.com/quicky-dev/api/fileStore",
+    "github.com/quicky-dev/auth-service/util",
     "github.com/quicky-dev/generator/generator",
     "go.mongodb.org/mongo-driver/bson",
     "go.mongodb.org/mongo-driver/bson/primitive",

@@ -11,7 +11,5 @@ func main() {
 	app := echo.New()
 
 	routers.RegisterScriptsRoutes(app)
-
 	app.Logger.Fatal(app.Start(os.Getenv("PORT")))
-
 }
