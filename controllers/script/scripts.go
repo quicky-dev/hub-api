@@ -8,11 +8,15 @@ import (
 // GetScripts returns all ratings and comments for scripts
 func GetScripts(c echo.Context) error {
 
-	scripts, err := db.GetScripts()
+	scripts, err := db.ReturnScripts()
 
 	if err != nil {
 		return c.JSON(400, scriptError{"Login failed."})
 	}
 
 	return scripts
+}
+
+func UpdateScript(c echo.Context) erro {
+
 }

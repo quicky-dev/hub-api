@@ -25,7 +25,7 @@ type Script struct {
 
 // CreateScript creates a new empty Script, population of Script attributes will have to be
 // done seperately.
-func (this *Script) SaveScript() (string, error) {
+func SaveScript() (string, error) {
 	insertion, err := script.InsertOne(context.TODO(), this)
 
 	if err != nil {
@@ -73,8 +73,27 @@ func ReturnScripts() ([]*Script, error) {
 	return results, nil
 }
 
+func UpdateScriptComment(objectID string) (bool, error) {
+	objectIDHex, err := util.GetObjectIDFromString(objectID)
+
+	// update comment
+	filter_comment := bson.D{{"Comments", "ID"}}
+
+	// get scripts
+	scripts, err := ReturnScripts()
+
+	// loop through scripts
+
+	update := bson.D{
+		{"$inc", bson.D{
+			{"age", 1},
+		}},
+	}
+
+}
+
 // DeleteScript will delete the script associated with its id
-func (this *Script) DropScript(objectID string) (bool, error) {
+func DropScript(objectID string) (bool, error) {
 	objectIDHex, err := util.GetObjectIDFromString(objectID)
 
 	if err != nil {
