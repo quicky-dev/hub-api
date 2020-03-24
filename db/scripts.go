@@ -43,6 +43,18 @@ func SaveScript() (string, error) {
 
 }
 
+func GetScriptByID(scriptID string) (*Script, error) {
+	foundScript := new(Script)
+	filter := bson.M{"_id": scriptID}
+	err := script.FindOne(context.TODO(), filter).Decode(&foundScript)
+
+	if err != nil {
+		return foundScript, err 
+	}
+
+	return foundScript, err
+}
+
 // GetScripts returns a list of all Scripts
 func ReturnScripts() ([]*Script, error) {
 	findOptions := options.Find()
