@@ -25,21 +25,22 @@ type Script struct {
 
 // CreateScript creates a new empty Script, population of Script attributes will have to be
 // done seperately.
-func SaveScript() (string, error) {
+func (this *Script) SaveScript() error {
 	insertion, err := script.InsertOne(context.TODO(), this)
 
 	if err != nil {
 		log.Printf(err.Error())
-		log.Printf("Could not save Script struct to collection")
+		return err 
 	}
 
-	thisID := util.GetObjectIdFromInsertion(insertion.InsertedID)
+	ID, status := insertion.InsertedID.(primitive.ObjectID)
 
-	if thisID == "" {
-		return "", fmt.Errorf("Couldn't obtain the ObjectID for this: %s", this.Username)
+	if status == false {
+		return errors.New("Couldn't save the script.")
 	}
 
-	return thisID, nil
+	this.ID = thisID
+	return nil
 
 }
 
