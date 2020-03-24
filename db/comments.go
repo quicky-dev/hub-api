@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/quicky-dev/auth-service/util"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 )
@@ -15,6 +16,18 @@ type Comment struct {
 	Content  string             `bson:"content"`
 	Username string             `bson:"username"`
 	AuthID   string             `bson:"authID"`
+}
+
+func GetCommentByID(commentID string) (*Comment, error) {
+	foundComment := new(Comment)
+	filter := bson.M{"_id": commentID}
+	err := comments.FindOne(context.TODO(), filter).Decode(&foundComment)
+
+	if err != nil {
+		return foundComment, err
+	}
+
+	return foundComment, nil
 }
 
 func (this *Comment) Save() error {
