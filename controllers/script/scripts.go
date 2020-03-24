@@ -5,6 +5,10 @@ import (
 	"github.com/quicky-dev/hub-api/db"
 )
 
+func GetScriptID(c echo.Context) error {
+
+}
+
 // GetScripts returns all ratings and comments for scripts
 func GetScripts(c echo.Context) error {
 

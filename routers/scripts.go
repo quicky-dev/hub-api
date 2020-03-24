@@ -2,23 +2,17 @@ package routers
 
 import (
 	"github.com/labstack/echo"
-	"github.com/quicky-dev/hub-api/controllers"
+	"github.com/quicky-dev/hub-api/controllers/comments"
+	"github.com/quicky-dev/hub-api/controllers/script"
 )
 
 func RegisterScriptsRoutes(app *echo.Echo) {
-	/* ----------------------------- Linux Packages ------------------------- */
-	app.GET("/api/v1/os/ubuntu/generic", controllers.GetUbuntuGeneric)
-	// returns object of supported downloads
-	app.GET("/api/v1/os/ubuntu/availableItems", controllers.GetUbuntuItems)
-	// send arr's of software to setup, returns a custom setup script
-	app.POST("/api/v1/os/ubuntu/dynamic", controllers.GetUbuntuCustom)
-	// returns file when user runs setup script from terminal
-	app.GET("/api/v1/os/ubuntu/scripts/:uuid", controllers.GetUbuntuFile)
+	// Scripts
+	app.GET("/api/v1/scripts", script.GetScripts)
+	app.GET("/api/v1/scripts/:id", script.GetScriptID)
+	app.PUT("/api/v1/scripts/:id", script.UpdateScript)
 
-	/* ----------------------------- MacOS Packages ------------------------- */
-	app.GET("/api/v1/os/macos/generic", controllers.GetMacOSGeneric)
-	app.GET("/api/v1/os/macos/availableItems", controllers.GetMacOSItems)
-	app.POST("/api/v1/osmacosu/dynamic", controllers.GetMacOSCustom)
-	app.GET("/api/v1/os/macos/scripts/:uuid", controllers.GetMacOSFile)
+	// Comments
+	app.GET("/api/v1/comments", comments.GetComment)
 
 }
