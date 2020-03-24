@@ -23,7 +23,7 @@ type Script struct {
 	Comments  []primitive.ObjectID
 }
 
-// CreateScript creates a new empty Script, population of Script attributes will have to be
+// SaveScript creates a new empty Script, population of Script attributes will have to be
 // done seperately.
 func (this *Script) SaveScript() error {
 	insertion, err := script.InsertOne(context.TODO(), this)
@@ -44,6 +44,7 @@ func (this *Script) SaveScript() error {
 
 }
 
+// GetScriptByID returns a specific script obj by id
 func GetScriptByID(scriptID string) (*Script, error) {
 	foundScript := new(Script)
 	filter := bson.M{"_id": scriptID}
@@ -56,7 +57,7 @@ func GetScriptByID(scriptID string) (*Script, error) {
 	return foundScript, err
 }
 
-// GetScripts returns a list of all Scripts
+// ReturnScripts returns a list of all Scripts
 func ReturnScripts() ([]*Script, error) {
 	findOptions := options.Find()
 	empty_filter := bson.D{{}}
@@ -86,6 +87,7 @@ func ReturnScripts() ([]*Script, error) {
 	return results, nil
 }
 
+// UpdateScript  updates a script associated with input id primitive
 func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
 	// get id of comment to update
 	objectIDHex, err := util.GetObjectIDFromString(objectID)
