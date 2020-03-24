@@ -73,7 +73,7 @@ func ReturnScripts() ([]*Script, error) {
 	return results, nil
 }
 
-func UpdateScriptComment(objectID string) (bool, error) {
+func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
 	objectIDHex, err := util.GetObjectIDFromString(objectID)
 
 	// update comment
@@ -83,12 +83,13 @@ func UpdateScriptComment(objectID string) (bool, error) {
 	scripts, err := ReturnScripts()
 
 	// loop through scripts
+	for i, script := range scripts {
+		update := bson.D{
+			{"$inc", bson.D{
+				{"age", 1},
+			}},
+	} 
 
-	update := bson.D{
-		{"$inc", bson.D{
-			{"age", 1},
-		}},
-	}
 
 }
 
