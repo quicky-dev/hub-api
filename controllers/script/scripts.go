@@ -17,6 +17,7 @@ func GetScripts(c echo.Context) error {
 	return c.JSON(200, scripts)
 }
 
+// UpdateScript updates the script obj with associated changes
 func UpdateScript(c echo.Context) error {
 
 }

@@ -3,7 +3,7 @@ package db
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"log"
 
 	"github.com/quicky-dev/hub-api/util"
@@ -30,7 +30,7 @@ func (this *Script) SaveScript() error {
 
 	if err != nil {
 		log.Printf(err.Error())
-		return err 
+		return err
 	}
 
 	ID, status := insertion.InsertedID.(primitive.ObjectID)
@@ -51,7 +51,7 @@ func GetScriptByID(scriptID string) (*Script, error) {
 	err := script.FindOne(context.TODO(), filter).Decode(&foundScript)
 
 	if err != nil {
-		return foundScript, err 
+		return foundScript, err
 	}
 
 	return foundScript, err
@@ -87,16 +87,18 @@ func ReturnScripts() ([]*Script, error) {
 	return results, nil
 }
 
-// UpdateScript  updates a script associated with input id primitive
+// UpdateScript  updates a script associated with input id primitive. Returns true
+// if update was successful, err otherwise.
 func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
 	// get id of comment to update
 	objectIDHex, err := util.GetObjectIDFromString(objectID)
 
-	update := bson.D{
-		{"$inc", bson.D{
-			{"Comment", 1},
-		}},
-	}
+	// TODO: ??
+	// update := bson.D{
+	// 	{"$inc", bson.D{
+	// 		{"Comment", 1},
+	// 	}},
+	// }
 
 	// update comment
 	filter_comment := bson.D{{"Comments", "ID"}}
@@ -106,16 +108,18 @@ func UpdateScriptComment(objectID string, comment Comment) (bool, error) {
 
 	// loop through scripts
 	for _, script := range scripts {
-		for _, comment := range Comments {
+		for _, comment := range script.Comments {
 			if comment.ID == objectIDHex {
 				// update comment
-				updateResult, err := collection.UpdateOne(context.TODO(), filter, update)
+				updateResult, err := collection.UpdateOne(context.TODO(), filter_comment, update)
 				if err != nil {
 					log.Fatal(err)
+					return err
 				}
 			}
 
 		}
-	
-}
 
+	}
+	return true, nil
+}
