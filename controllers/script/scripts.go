@@ -11,12 +11,12 @@ func GetScripts(c echo.Context) error {
 	scripts, err := db.ReturnScripts()
 
 	if err != nil {
-		return c.JSON(400, scriptError{"Login failed."})
+		return c.JSON(400, scriptError{"No scripts"})
 	}
 
-	return scripts
+	return c.JSON(200, scripts)
 }
 
-func UpdateScript(c echo.Context) erro {
+func UpdateScript(c echo.Context) error {
 
 }
